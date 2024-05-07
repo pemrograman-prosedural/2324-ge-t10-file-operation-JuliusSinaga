@@ -25,13 +25,12 @@ void print_student(struct student_t *_student, int _size) {
         }
         printf("%s|%s|%s|%s\n", _student[i].id, _student[i].name, _student[i].year, gender);
     }
-
+    fflush(stdout);
 }
 
 void print_student_detail(struct student_t *_student, int _size) {
-    for (int i = 0; i < _size; i++)
-    {
-        char *_gender;
+    char *_gender;
+    for (int i = 0; i < _size; i++) {
         if (_student[i].gender == GENDER_MALE) {
             _gender = "male";
         } else {
@@ -44,4 +43,5 @@ void print_student_detail(struct student_t *_student, int _size) {
             printf("%s|%s|%s|%s|%s\n", _student[i].id, _student[i].name, _student[i].year, _gender, _student[i].dorm->name);
         }
     }
+    fflush(stdout);
 }

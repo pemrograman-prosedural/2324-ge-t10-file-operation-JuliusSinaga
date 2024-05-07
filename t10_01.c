@@ -11,6 +11,9 @@
 int main(int _argc, char **_argv) {
     struct dorm_t *dorm = malloc(6 * sizeof(struct dorm_t));
     struct student_t *student = malloc(12 * sizeof(struct student_t));
+    for (int i = 0; i < 12; i++) {
+        student[i].dorm = NULL;
+    }
 
     FILE *dormFile;
     FILE *studentFile;
@@ -76,8 +79,46 @@ int main(int _argc, char **_argv) {
             print_student(student, indexStudent);
         }
 
+        temp = strtok(masukan, "#");
+        if (strcmp(temp, "dorm-add") == 0) {
+            temp = strtok(NULL, "#");
+            strcpy(dorm[indexDorm].name, temp);
+            temp = strtok(NULL, "#");
+            dorm[indexDorm].capacity = atoi(temp);
+            temp = strtok(NULL, "#");
+            if (strcmp(temp, "male") == 0) {
+                dorm[indexDorm].gender = GENDER_MALE;
+            } else {
+                dorm[indexDorm].gender = GENDER_FEMALE;
+            }
+
+            dorm[indexDorm] = create_dorm(dorm[indexDorm].name, dorm[indexDorm].capacity, dorm[indexDorm].gender);
+
+            indexDorm++;
+        } else if (strcmp(temp, "student-add") == 0) {
+            temp = strtok(NULL, "#");
+            strcpy(student[indexStudent].id, temp);
+            temp = strtok(NULL, "#");
+            strcpy(student[indexStudent].name, temp);
+            temp = strtok(NULL, "#");
+            strcpy(student[indexStudent].year, temp);
+            temp = strtok(NULL, "#");
+            if (strcmp(temp, "male") == 0) {
+                student[indexStudent].gender = GENDER_MALE;
+            } else {
+                student[indexStudent].gender = GENDER_FEMALE;
+            }
+            
+            student[indexStudent] = create_student(student[indexStudent].id, student[indexStudent].name, student[indexStudent].year, student[indexStudent].gender);
+
+            indexStudent++;
+        } else {
+        }
+
     }
 
+    free(dorm);
+    free(student);
 
     return 0;
 }
